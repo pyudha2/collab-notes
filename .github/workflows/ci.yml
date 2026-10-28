@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            web/package-lock.json
+            realtime-server/package-lock.json
+
+      - name: Install web
+        working-directory: web
+        run: npm ci
+
+      - name: Prisma generate web
+        working-directory: web
+        run: npx prisma generate
+
+      - name: Lint web
+        working-directory: web
+        run: npm run lint --if-present
+
+      - name: Build web
+        working-directory: web
+        run: npm run build
+        env:
+          DATABASE_URL: mysql://user:pass@localhost:3306/db
+          NEXTAUTH_SECRET: ci-secret
+          NEXTAUTH_URL: http://localhost:3000
+
+      - name: Install realtime-server
+        working-directory: realtime-server
+        run: npm ci
+
+      - name: Build realtime-server
+        working-directory: realtime-server
+        run: npm run build --if-present
