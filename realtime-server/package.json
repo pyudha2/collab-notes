@@ -15,5 +15,19 @@
     "prisma": "^8.0.0-rc.27",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
-  }
+  },
+  "name": "realtime-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "check": "tsx src/presence.check.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
 }
