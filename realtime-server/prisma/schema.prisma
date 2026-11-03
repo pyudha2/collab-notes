@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  room      String   @db.VarChar(50)
+  name      String   @db.VarChar(30)
+  text      String   @db.VarChar(1000)
+  createdAt DateTime @default(now())
+
+  @@index([room, createdAt])
+}
