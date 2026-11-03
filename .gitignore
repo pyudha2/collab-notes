@@ -25,3 +25,10 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+realtime-server/node_modules
+realtime-server/.env
+realtime-server/src/generated
+realtime-server/node_modules
+web/node_modules
+web/.env
